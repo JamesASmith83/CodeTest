@@ -4,6 +4,15 @@ const ActiveStream = require('../db/models/activeStream.js').ActiveStream;
 // @desc Create Active Stream For User
 // @route POST api/users/:userId/activeStreams
 async function createActiveStream(req, res, userId) {
+  ActiveStream.count({ userId: userId }, function (err, count) {
+    if (count >= 3) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      return res.end(
+        JSON.stringify({ message: 'Active Stream Limit Reached' })
+      );
+    }
+  });
+
   const body = await getPostData(req);
   console.log('BODY:' + JSON.parse(body));
   const { deviceId } = JSON.parse(body);
