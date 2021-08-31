@@ -1,6 +1,5 @@
 const http = require('http');
-const { getPostData } = require('./utils');
-const ActiveStream = require('./db/models/activeStream').ActiveStream;
+const { createActiveStream } = require('./controllers/activeStreamsController');
 
 const app = http.createServer((req, res) => {
   if (
@@ -15,24 +14,7 @@ const app = http.createServer((req, res) => {
     req.method === 'POST'
   ) {
     const userId = req.url.split('/')[3];
-
-    const body = getPostData(req);
-    const { deviceId } = JSON.parse(JSON.stringify(body));
-
-    const activeStream = new ActiveStream({
-      userId: userId,
-      deviceId: deviceId,
-    });
-    activeStream
-      .save(activeStream)
-      .then((activeStream) =>
-        res
-          .writeHead(201, { 'Content-Type': 'application/json' })
-          .end(JSON.stringify(activeStream))
-      );
-  } else {
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Route Not Found' }));
+    createActiveStream(req, res, userId);
   }
 });
 
