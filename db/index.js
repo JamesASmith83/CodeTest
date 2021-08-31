@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const DB_URI = 'mongodb://localhost:27017/CodeTestDB';
 
+const DB_URI =
+  'mongodb+srv://jim:tubxYx-xikza9-qazwij@cluster0.nb2fk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 function connect() {
   return new Promise((resolve, reject) => {
     if (process.env.NODE_ENV != 'test') {
