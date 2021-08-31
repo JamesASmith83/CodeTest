@@ -30,6 +30,17 @@ async function createActiveStream(req, res, userId) {
     );
 }
 
+// @desc Get All Active Streams Per User
+// @route GET api/users/:userId/activeStreams
+async function getUsersActiveStreams(req, res, userId) {
+  ActiveStream.find({ userId: userId }).then((activeStreams) =>
+    res
+      .writeHead(200, { 'Content-Type': 'application/json' })
+      .end(JSON.stringify(activeStreams))
+  );
+}
+
 module.exports = {
   createActiveStream,
+  getUsersActiveStreams,
 };
