@@ -1,3 +1,4 @@
+const log = require('simple-node-logger').createSimpleLogger('project.log');
 const http = require('http');
 const {
   createActiveStream,
@@ -18,6 +19,7 @@ const app = http.createServer((req, res) => {
     const userId = req.url.split('/')[3];
     createActiveStream(req, res, userId);
   } else {
+    log.info('User attempted to use an unimplemented route');
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'Route Not Found' }));
   }

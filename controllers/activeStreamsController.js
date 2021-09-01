@@ -1,6 +1,7 @@
 const { getPostData } = require('../utils');
 const { streamCount } = require('../db/helper');
 const ActiveStream = require('../db/models/activeStream.js').ActiveStream;
+const log = require('simple-node-logger').createSimpleLogger('project.log');
 
 // @desc Create Active Stream For User
 // @route POST api/users/:userId/activeStreams
@@ -8,6 +9,7 @@ async function createActiveStream(req, res, userId) {
   try {
     const count = await streamCount(userId);
     if (count >= 3) {
+      log.info('User: ' + userId + ' has attempted to run more than 3 streams');
       res.writeHead(404, { 'Content-Type': 'application/json' });
       return res.end(
         JSON.stringify({ message: 'Active Stream Limit Reached' })
@@ -29,7 +31,7 @@ async function createActiveStream(req, res, userId) {
       );
   } catch {
     (err) => {
-      console.log('Error creating streams: ' + err);
+      log.error('Error creating streams' + err);
     };
   }
 }
@@ -45,7 +47,7 @@ async function getUsersActiveStreams(req, res, userId) {
     );
   } catch {
     (err) => {
-      console.log('Error getting active streams ' + err);
+      log.error('Error getting active streams ' + err);
     };
   }
 }

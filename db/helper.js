@@ -4,7 +4,6 @@ function streamCount(userId) {
   return ActiveStream.count({ userId: userId })
     .exec()
     .then((activeStreamCount) => {
-      console.log(activeStreamCount);
       return activeStreamCount;
     })
     .catch((err) => {
