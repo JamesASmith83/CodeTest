@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const config = require('../config');
 
-const DB_URI =
-  'mongodb+srv://jim:tubxYx-xikza9-qazwij@cluster0.nb2fk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const DB_URI = config.connectionString;
+
 function connect() {
   return new Promise((resolve, reject) => {
     if (process.env.NODE_ENV != 'test') {
