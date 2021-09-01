@@ -30,7 +30,7 @@ curl --header "Content-Type: application/json" \
 
 ```bash
 #Get Active Streams for user
-curl http://localhost:49160/api/users/{userId}}activeStreams
+curl http://localhost:49160/api/users/{userId}/activeStreams
 ```
 
 ## Future Improvements
