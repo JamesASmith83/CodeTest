@@ -17,6 +17,9 @@ const app = http.createServer((req, res) => {
   ) {
     const userId = req.url.split('/')[3];
     createActiveStream(req, res, userId);
+  } else {
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: 'Route Not Found' }));
   }
 });
 

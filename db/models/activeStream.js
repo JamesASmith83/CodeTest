@@ -8,7 +8,7 @@ const activeStreamSchema = new mongoose.Schema({
   },
   deviceId: {
     type: String,
-    required: false,
+    required: true,
   },
 });
 
